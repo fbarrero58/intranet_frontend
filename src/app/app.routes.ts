@@ -13,7 +13,7 @@ import { NuevapassComponent } from './nuevapass/nuevapass.component';
 const appRoutes: Routes = [
     
     { path: 'login', component: LoginComponent },
-    { path: 'nuevapass', component: NuevapassComponent },
+    { path: 'nuevapass/:id', component: NuevapassComponent },
     { path: '**', component: NopagefoundComponent }
    
 ];

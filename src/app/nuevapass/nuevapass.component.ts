@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UsuarioService } from '../services/usuario/usuario.service';
+import { Router, ActivatedRoute } from '@angular/router';
+
+declare var swal;
 
 @Component({
   selector: 'app-nuevapass',
@@ -12,8 +15,12 @@ export class NuevapassComponent implements OnInit {
   correo: string = "Prueba@prueba.com";
   cargando: boolean = false;
 
-  constructor( public _us: UsuarioService ) { 
-    
+  constructor( public _us: UsuarioService, public ar: ActivatedRoute, public router: Router ) { 
+      
+    this.ar.params.subscribe( params => {
+      this.correo = params['id'];
+    });
+
    }
 
   ngOnInit() {
@@ -24,13 +31,18 @@ export class NuevapassComponent implements OnInit {
     if( forma.invalid ){
       return;
     }
-    this.cargando = true;
+    
     if( forma.value.password !== forma.value.password2 ){
-      console.log('Las contraseñas deben ser iguales');
+      swal("Error en la contraseña", "Las contraseñas no coinciden", "error");
     }else{
-      console.log('Todo OK');
+      this.cargando = true;
+      this._us.actualizar_password(forma.value.password)
+              .subscribe( resp => {
+                this.cargando = false;
+                this.router.navigate(['/dashboard']);
+              });
     }
-    this.cargando = false;
+    
   }
 
 }

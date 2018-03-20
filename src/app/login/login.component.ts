@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
             .subscribe( resp => {
                 this.cargando = false;
                 if( this._us.setear ){
-                  this.router.navigate(['/nuevapass']);
+                  this.router.navigate(['/nuevapass', forma.value.email]);
                 }else{
                   this.router.navigate(['/dashboard']);
                 }

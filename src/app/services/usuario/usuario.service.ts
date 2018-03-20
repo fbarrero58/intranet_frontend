@@ -9,6 +9,7 @@ import 'rxjs/add/operator/catch';
 
 import { Observable } from 'rxjs/Observable'
 
+declare var swal;
 
 @Injectable()
 export class UsuarioService {
@@ -36,11 +37,28 @@ export class UsuarioService {
                     
                     return true;
                 });
-
   }
 
-  cerrar_sesion(){
-    
+  actualizar_password( password: string ){
+
+    let url = 'http://localhost/rest/index.php/login';
+
+    let objeto = {
+      'id': this.usuario,
+      'pass': password
+    };
+
+    return this.http.put(url,objeto)
+                .map( (resp:any) => {
+                  if(resp.err){
+                    swal("Ocurrio un error", resp.mensaje, "error");
+                  }else{
+                    this.setear = false;
+                    swal("Listo!", resp.mensaje, "success");
+                  }
+                  return true;
+                });
+
   }
 
 }
