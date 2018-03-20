@@ -1,0 +1,1 @@
+export const URL_SERVICIOS = '192.168.1.119';

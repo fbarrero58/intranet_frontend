@@ -1,0 +1,42 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule }   from '@angular/forms';
+
+// Rutas
+import { APP_ROUTES } from './app.routes';
+
+// Modulos
+import { PageModule } from './pages/pages.module';
+
+// Servicios
+import { UsuarioService } from './services/usuario/usuario.service';
+
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { NopagefoundComponent } from './nopagefound/nopagefound.component';
+
+import { HttpClientModule } from '@angular/common/http';
+
+import { NuevapassComponent } from './nuevapass/nuevapass.component';
+
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    NopagefoundComponent,
+    NuevapassComponent
+  ],
+  imports: [
+    BrowserModule,
+    APP_ROUTES,
+    HttpClientModule,
+    PageModule,
+    FormsModule
+  ],
+  providers: [
+    UsuarioService
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
