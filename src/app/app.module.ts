@@ -10,6 +10,7 @@ import { PageModule } from './pages/pages.module';
 
 // Servicios
 import { UsuarioService } from './services/usuario/usuario.service';
+import { LoginGuardGuard } from './services/guards/login-guard.guard';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -18,6 +19,7 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import { NuevapassComponent } from './nuevapass/nuevapass.component';
+
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import { NuevapassComponent } from './nuevapass/nuevapass.component';
     FormsModule
   ],
   providers: [
-    UsuarioService
+    UsuarioService,
+    LoginGuardGuard
   ],
   bootstrap: [AppComponent]
 })
