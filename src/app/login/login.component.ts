@@ -4,6 +4,8 @@ import { UsuarioService } from '../services/usuario/usuario.service';
 import { Usuario } from '../models/usuario.model';
 import { Router } from '@angular/router';
 
+declare function init_plugins();
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,6 +21,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    init_plugins();
   }
 
   ingresar( forma: NgForm ){
@@ -36,7 +39,8 @@ export class LoginComponent implements OnInit {
                 if( this._us.setear ){
                   this.router.navigate(['/nuevapass', forma.value.email]);
                 }else{
-                  this.router.navigate(['/dashboard']);
+                  this._us.traer_info()
+                          .subscribe( resp => this.router.navigate(['/dashboard']));
                 }
             });
   }

@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import {RequestOptions, Request, RequestMethod} from '@angular/http';
+import { RequestOptions, Request, RequestMethod} from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Usuario } from '../../models/usuario.model';
 import { URL_SERVICIOS } from '../../config/config';
+import { Router } from '@angular/router';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { Observable } from 'rxjs/Observable'
+
 
 declare var swal;
 
@@ -17,11 +19,21 @@ export class UsuarioService {
   setear: boolean = false;
   usuario: any;
   token: string = "";
+  info_usuario: any;
 
-  constructor( public http: HttpClient ) { 
+  constructor( public http: HttpClient, public router: Router ) { 
+    
+    this.cargar_storage();
+  }
+
+  cargar_storage(){
     
     if( localStorage.getItem('token') ){
       this.token = localStorage.getItem('token');
+    }
+
+    if( localStorage.getItem('info_usuario') ){
+      this.info_usuario = JSON.parse(localStorage.getItem('info_usuario'));
     }
 
   }
@@ -31,8 +43,7 @@ export class UsuarioService {
   }
 
   iniciar_sesion( usuario: Usuario, recordar: boolean = false ) {
-    
-    let url = 'http://localhost/rest/index.php/login';
+    let url = URL_SERVICIOS + 'login';
 
     return this.http.post( url, usuario)
             .map( (resp:any) => {
@@ -40,17 +51,16 @@ export class UsuarioService {
                   this.setear = true;
                   this.usuario = resp.id_usuario;
                 }else{
+                  this.usuario = resp.id_usuario;
                   this.token = resp.token;
                   localStorage.setItem('token',this.token);
                 }
-                
                 return true;
             });
   }
 
   actualizar_password( password: string ){
-
-    let url = 'http://localhost/rest/index.php/login';
+    let url = URL_SERVICIOS + 'login';
 
     let objeto = {
       'id': this.usuario,
@@ -67,7 +77,26 @@ export class UsuarioService {
               }
               return true;
             });
+  }
 
+  traer_info(){
+    let url = URL_SERVICIOS + 'usuarios/'+this.usuario+'?token='+this.token;
+    
+    return this.http.get(url)
+                    .map( (resp:any) => {
+                      this.info_usuario = resp.Usuarios[0];
+                      localStorage.setItem('info_usuario',JSON.stringify(this.info_usuario));
+                      return true;
+                    });
+  }
+
+  cerrar_sesion(){
+    this.token = "";
+    this.usuario = null;
+    this.info_usuario = null;
+    localStorage.removeItem("token");
+    localStorage.removeItem("info_usuario");
+    this.router.navigate(['/login']);
   }
 
 }

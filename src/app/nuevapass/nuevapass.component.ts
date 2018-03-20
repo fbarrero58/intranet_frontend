@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { UsuarioService } from '../services/usuario/usuario.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
+declare function init_plugins();
 declare var swal;
 
 @Component({
@@ -24,6 +25,7 @@ export class NuevapassComponent implements OnInit {
    }
 
   ngOnInit() {
+    init_plugins();
   }
 
   enviar( forma: NgForm ){
@@ -39,7 +41,7 @@ export class NuevapassComponent implements OnInit {
       this._us.actualizar_password(forma.value.password)
               .subscribe( resp => {
                 this.cargando = false;
-                this.router.navigate(['/dashboard']);
+                this.router.navigate(['/login']);
               });
     }
     
