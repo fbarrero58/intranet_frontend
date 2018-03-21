@@ -17,7 +17,9 @@ export class LoginComponent implements OnInit {
   cargando: boolean = false;
 
   constructor( public _us: UsuarioService, public router: Router ) { 
-    
+    if( this._us.token.length > 2 ){
+      this.router.navigate(['/dashboard']);
+    }
   }
 
   ngOnInit() {

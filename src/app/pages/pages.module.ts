@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
+import { FormsModule }   from '@angular/forms';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 
@@ -7,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 
 import { PAGES_ROUTES } from './pages.routes';
 import { RegistroHorasComponent } from './registro-horas/registro-horas.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 
 @NgModule({
@@ -14,16 +16,19 @@ import { RegistroHorasComponent } from './registro-horas/registro-horas.componen
     declarations: [
         PagesComponent,
         DashboardComponent,
-        RegistroHorasComponent
+        RegistroHorasComponent,
+        PerfilComponent
     ],
     exports:[
         PagesComponent,
         DashboardComponent ,
-        RegistroHorasComponent      
+        RegistroHorasComponent ,
+        PerfilComponent     
     ],
     imports:[
         SharedModule,
-        PAGES_ROUTES
+        PAGES_ROUTES,
+        FormsModule
     ]
 
 })
