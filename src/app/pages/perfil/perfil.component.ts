@@ -22,6 +22,15 @@ export class PerfilComponent implements OnInit {
     $('.mydatepicker').datepicker();
   }
 
+  //datos personales
+  modificar(datospersonales: NgForm){
+  
+    this._us.modificar_usuario(datospersonales.value,this.usuario)
+     .subscribe( resp => {
+      
+     });
+  }
+
  
 
 }

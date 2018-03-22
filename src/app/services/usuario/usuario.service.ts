@@ -99,4 +99,40 @@ export class UsuarioService {
     this.router.navigate(['/login']);
   }
 
+  modificar_usuario(form:any, usuario: any){
+
+    let url = URL_SERVICIOS + 'usuarios/'+ usuario.id +'?token='+this.token;
+
+    let objeto = {
+      'id_rol': usuario.id_rol,
+      'cargo': usuario.cargo,
+      'fecha_vinculacion': usuario.fecha_vinculacion,
+      'foto': 'foto prueba',
+      'perfil_profesional': usuario.perfil_profesional,
+      'nombres': form.nombres,
+      'apellidos': form.apellidos,
+      'rut': form.rut,
+      'correo_personal': usuario.correo_personal,
+      'celular': form.celular,
+      'fecha_nacimiento': '2018-05-08',
+      'direccion': form.direccion,
+      'pais_origen': form.pais_origen,
+      'pais_residencia': form.pais_residencia
+  }
+
+  this.cargar_storage();
+
+    return this.http.put(url,objeto)
+     .map( (resp:any) => {
+              if(resp.err){
+                swal("Ocurrio un error", resp.mensaje, "error");
+              }else{
+                this.setear = false;
+                swal("Listo!", resp.mensaje, "success");
+              }
+              return true;
+            });
+  
+  }
+
 }
