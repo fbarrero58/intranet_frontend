@@ -8,8 +8,8 @@
                     <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img src="assets/assets/images/users/profile.png" alt="user" /><span class="hide-menu"> {{ usuario.nombres }} </span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a routerLink="/perfil" routerLinkActive="active">Mi Perfil </a></li>
-                        <li><a href="javascript:void()">Mi educación</a></li>
-                        <li><a href="javascript:void()">Mi experiencia</a></li>
+                        <li><a routerLink="/educacion" routerLinkActive="active">Mi educación</a></li>
+                        <li><a routerLink="/experiencia" routerLinkActive="active">Mi experiencia</a></li>
                         <li><a class="cursor" (click)="_us.cerrar_sesion()">Cerrar Sesión</a></li>
                     </ul>
                 </li>

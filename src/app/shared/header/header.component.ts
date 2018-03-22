@@ -9,7 +9,11 @@ import { UsuarioService } from '../../services/usuario/usuario.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor( public _us: UsuarioService ) { }
+  usuario: any;
+
+  constructor( public _us: UsuarioService ) { 
+    this.usuario = this._us.info_usuario;
+  }
 
   ngOnInit() {
   }

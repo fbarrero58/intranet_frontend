@@ -1,0 +1,131 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <!-- Tabla de empresas -->
+            <div class="card-body" *ngIf="!empresa">
+                <h4 class="card-title"> Empresas </h4>
+                <button data-toggle="modal" data-target="#modal_empresa" type="button" class="btn waves-effect waves-light btn-outline-info pull-right">Añadir Empresa</button>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Industria</th>
+                                <th>Cargos</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let empresa of modelo_empresa">
+                                <td>{{ empresa.nombre }}</td>
+                                <td>{{ empresa.industria }}</td>
+                                <td>
+                                    <button type="button" class="btn waves-effect waves-light btn-sm btn-info" (click)="ver_cargos(empresa.id)">Ver Cargos</button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-sm waves-effect waves-light btn-warning"><i class="fa fa-pencil"></i></button>
+                                    <button type="button" class="btn btn-sm waves-effect waves-light btn-danger"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- FIN Tabla de empresas -->
+            <!-- Tabla de cargos -->
+            <div class="card-body" *ngIf="empresa && !cargo">
+                <h4 class="card-title"> Cargos </h4>
+                <button data-toggle="modal" data-target="#modal_empresa" type="button" class="btn waves-effect waves-light btn-outline-info pull-right">Añadir Cargo</button>
+                <button (click)="volver_empresas()" type="button" class="btn waves-effect waves-light btn-outline-info pull-right">Volver</button>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Fecha de Inicio</th>
+                                <th>Fecha Fin</th>
+                                <th>Responsabilidades</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cargo of modelo_cargos">
+                                <td>{{ cargo.nombre }}</td>
+                                <td>{{ cargo.fecha_inicio }}</td>
+                                <td>{{ cargo.fecha_fin }}</td>
+                                <td>
+                                    <button type="button" class="btn waves-effect waves-light btn-sm btn-info" (click)="ver_respon(cargo.id)">Ver Responsabilidades</button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-sm waves-effect waves-light btn-warning"><i class="fa fa-pencil"></i></button>
+                                    <button type="button" class="btn btn-sm waves-effect waves-light btn-danger"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- FIN Tabla de cargos -->
+            <!-- Tabla de responsabilidades -->
+            <div class="card-body" *ngIf="empresa && cargo">
+
+                <h4 class="card-title"> Responsabilidades </h4>
+                <button data-toggle="modal" data-target="#modal_empresa" type="button" class="btn waves-effect waves-light btn-outline-info pull-right">Añadir Responsabilidad</button>
+                <button (click)="volver_cargos()" type="button" class="btn waves-effect waves-light btn-outline-info pull-right">Volver</button>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Descripción</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let respo of modelo_respo">
+                                <td>{{ respo.descripcion }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm waves-effect waves-light btn-warning"><i class="fa fa-pencil"></i></button>
+                                    <button type="button" class="btn btn-sm waves-effect waves-light btn-danger"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <!-- FIN Tabla de responsabilidades -->
+        </div>
+    </div>
+    <div id="modal_empresa" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Nueva Empresa</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="card card-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <form>
+                                    <div class="form-group">
+                                        <label>Nombre de la Empresa</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Industria</label>
+                                        <input type="text" class="form-control" placeholder="Ej: Eléctrica">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Guardar</button>
+                    <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
