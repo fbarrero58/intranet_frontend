@@ -15,7 +15,6 @@
                 <h6>{{ usuario.correo}}</h6> <small class="text-muted p-t-30 db">Celular</small>
                 <h6>{{ usuario.celular }}</h6> <small class="text-muted p-t-30 db">Dirección</small>
                 <h6>{{ usuario.direccion }}</h6>
-                <h6>Prueba</h6>
                 <small class="text-muted p-t-30 db">Redes Sociales</small>
                 <br/>
                 <button class="btn btn-circle btn-secondary"><i class="fa fa-linkedin"></i></button>
@@ -36,18 +35,18 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="home" role="tabpanel">
                     <div class="card-body">
-                        <form class=" form-horizontal form-material" #datospersonales="ngForm" (ngSubmit)="modificar(datospersonales)">
+                        <form class=" form-horizontal form-material" ngNativeValidate name="datospersonales" #datospersonales="ngForm" (ngSubmit)="modificar(datospersonales)">
                             <div class="row p-t-20">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Nombres</label>
-                                        <input type="text" name="nombres" class="form-control" [(ngModel)]="usuario.nombres" placeholder="Pedro" name="nombres">
+                                        <input type="text" name="nombres" class="form-control" required [(ngModel)]="usuario.nombres" placeholder="Pedro" name="nombres">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Apellidos</label>
-                                        <input type="text" name="apellidos" class="form-control" [(ngModel)]="usuario.apellidos" placeholder="Pérez" name="apellidos">
+                                        <input type="text" name="apellidos" class="form-control" required [(ngModel)]="usuario.apellidos" placeholder="Pérez" name="apellidos">
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +60,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">RUT</label>
-                                        <input type="text" name="rut" class="form-control" [(ngModel)]="usuario.rut" placeholder="xx.xxx.xxx-y" name="rut">
+                                        <input type="text" name="rut" class="form-control" [(ngModel)]="usuario.rut" required placeholder="xx.xxx.xxx-y" name="rut">
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +68,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Correo Personal</label>
-                                        <input type="text" class="form-control" [(ngModel)]="usuario.correo_personal" name="correo_personal">
+                                        <input type="email" class="form-control" [(ngModel)]="usuario.correo_personal" name="correo_personal">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -101,7 +100,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" class="btn waves-effect waves-light btn-success" type="submit">Actualizar Datos</button>
+                            <button class="btn waves-effect waves-light btn-success" type="submit">Actualizar Datos</button>
                         </form>
                     </div>
 
@@ -130,53 +129,56 @@
                             <br> Por favor ser lo mas específico posible ya que no hay límite de caracteres
                         </p>
 
-                        <div class="form-group">
-                            <label class="col-md-12">Perfil Profesional</label>
-                            <div class="col-md-12">
-                                <textarea rows="5" class="form-control form-control-line"></textarea>
-                            </div>
-                        </div>
 
+                        <form class=" form-horizontal form-material">
+                            <div class="form-group">
+                                <label class="col-md-12">Perfil Profesional</label>
+                                <div class="col-md-12">
+                                    <textarea rows="5" ngModel name="perfil" class="form-control form-control-line"></textarea>
+                                </div>
+                                <button class="btn waves-effect waves-light btn-success" type="submit">Actualizar Perfil</button>
+                            </div>
+                        </form>
 
                     </div>
                 </div>
-                <div class="tab-pane" id="settings" role="tabpanel">
-                    <div class="card-body">
-                        <form class="form-horizontal form-material">
-                            <div class="form-group">
-                                <label class="col-md-12">Full Name</label>
-                                <div class="col-md-12">
-                                    <input type="text" placeholder="Johnathan Doe" class="form-control form-control-line">
+                <div class=" tab-pane " id="settings " role="tabpanel ">
+                    <div class="card-body ">
+                        <form class="form-horizontal form-material ">
+                            <div class="form-group ">
+                                <label class="col-md-12 ">Full Name</label>
+                                <div class="col-md-12 ">
+                                    <input type="text " placeholder="Johnathan Doe " class="form-control form-control-line ">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="example-email" class="col-md-12">Email</label>
-                                <div class="col-md-12">
-                                    <input type="email" placeholder="johnathan@admin.com" class="form-control form-control-line" name="example-email" id="example-email">
+                            <div class="form-group ">
+                                <label for="example-email " class="col-md-12 ">Email</label>
+                                <div class="col-md-12 ">
+                                    <input type="email " placeholder="johnathan@admin.com " class="form-control form-control-line " name="example-email " id="example-email ">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-md-12">Password</label>
-                                <div class="col-md-12">
-                                    <input type="password" value="password" class="form-control form-control-line">
+                            <div class="form-group ">
+                                <label class="col-md-12 ">Password</label>
+                                <div class="col-md-12 ">
+                                    <input type="password " value="password " class="form-control form-control-line ">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-md-12">Phone No</label>
-                                <div class="col-md-12">
-                                    <input type="text" placeholder="123 456 7890" class="form-control form-control-line">
+                            <div class="form-group ">
+                                <label class="col-md-12 ">Phone No</label>
+                                <div class="col-md-12 ">
+                                    <input type="text " placeholder="123 456 7890 " class="form-control form-control-line ">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-md-12">Message</label>
-                                <div class="col-md-12">
-                                    <textarea rows="5" class="form-control form-control-line"></textarea>
+                            <div class="form-group ">
+                                <label class="col-md-12 ">Message</label>
+                                <div class="col-md-12 ">
+                                    <textarea rows="5 " class="form-control form-control-line "></textarea>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-12">Select Country</label>
-                                <div class="col-sm-12">
-                                    <select class="form-control form-control-line">
+                            <div class="form-group ">
+                                <label class="col-sm-12 ">Select Country</label>
+                                <div class="col-sm-12 ">
+                                    <select class="form-control form-control-line ">
                                           <option>London</option>
                                           <option>India</option>
                                           <option>Usa</option>
@@ -185,9 +187,9 @@
                                       </select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <button class="btn btn-success">Update Profile</button>
+                            <div class="form-group ">
+                                <div class="col-sm-12 ">
+                                    <button class="btn btn-success ">Update Profile</button>
                                 </div>
                             </div>
                         </form>

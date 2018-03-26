@@ -120,7 +120,7 @@ export class UsuarioService {
       'pais_residencia': form.pais_residencia
   }
 
-  this.cargar_storage();
+  localStorage.removeItem("info_usuario");
 
     return this.http.put(url,objeto)
      .map( (resp:any) => {
@@ -132,7 +132,81 @@ export class UsuarioService {
               }
               return true;
             });
-  
   }
+
+  modificar_informacion(perfil:any,usuario: any){
+    let url = URL_SERVICIOS + 'usuarios/'+ usuario.id +'?token='+this.token;
+    let objeto = {
+      'id_rol': usuario.id_rol,
+      'cargo': usuario.cargo,
+      'fecha_vinculacion': usuario.fecha_vinculacion,
+      'foto': 'foto prueba',
+      'perfil_profesional': perfil.perfil_profesional,
+      'nombres': usuario.nombres,
+      'apellidos': usuario.apellidos,
+      'rut': usuario.rut,
+      'correo_personal': usuario.correo_personal,
+      'celular': usuario.celular,
+      'fecha_nacimiento': '2018-05-08',
+      'direccion': usuario.direccion,
+      'pais_origen': usuario.pais_origen,
+      'pais_residencia': usuario.pais_residencia
+  }
+
+  localStorage.removeItem("info_usuario");
+    return this.http.put(url,objeto)
+     .map( (resp:any) => {
+              if(resp.err){
+                swal("Ocurrio un error", resp.mensaje, "error");
+              }else{
+                this.setear = false;
+                swal("Listo!", resp.mensaje, "success");
+              }
+              return true;
+            });
+  }
+
+  crear_empresa(empresa:any, id:any){
+    let url = URL_SERVICIOS + 'experiencia/empresa/?token='+this.token;
+    let objeto = {
+      'id_usuario': id,
+      'nombre': empresa.nombre_emp,
+      'industria': empresa.industria_emp
+    }
+
+    //console.log(objeto);
+
+    return this.http.post(url, objeto)
+    
+    .map( (resp:any) => {
+      if(resp.err){
+        swal("Ocurrio un error", resp.mensaje, "error");
+      }else{
+        //this.setear = false;
+        swal("Listo!", resp.mensaje, "success");
+      }
+      return true;
+    });
+
+  }
+
+  
+  /*iniciar_sesion( usuario: Usuario, recordar: boolean = false ) {
+    let url = URL_SERVICIOS + 'login';
+
+    return this.http.post( url, usuario)
+            .map( (resp:any) => {
+                if( resp.setear ){
+                  this.setear = true;
+                  this.usuario = resp.id_usuario;
+                }else{
+                  this.usuario = resp.id_usuario;
+                  this.token = resp.token;
+                  localStorage.setItem('token',this.token);
+                }
+                return true;
+            });
+  }*/
+  
 
 }

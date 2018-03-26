@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <!-- Tabla de empresas -->
-            <div class="card-body" *ngIf="!empresa">
+            <div class="card-body">
                 <h4 class="card-title"> Empresas </h4>
                 <button data-toggle="modal" data-target="#modal_empresa" type="button" class="btn waves-effect waves-light btn-outline-info pull-right">Añadir Empresa</button>
                 <div class="table-responsive">
@@ -33,9 +33,9 @@
             </div>
             <!-- FIN Tabla de empresas -->
             <!-- Tabla de cargos -->
-            <div class="card-body" *ngIf="empresa && !cargo">
+            <div class="card-body">
                 <h4 class="card-title"> Cargos </h4>
-                <button data-toggle="modal" data-target="#modal_empresa" type="button" class="btn waves-effect waves-light btn-outline-info pull-right">Añadir Cargo</button>
+                <button data-toggle="modal" data-target="#modal_cargos" type="button" class="btn waves-effect waves-light btn-outline-info pull-right">Añadir Cargo</button>
                 <button (click)="volver_empresas()" type="button" class="btn waves-effect waves-light btn-outline-info pull-right">Volver</button>
                 <div class="table-responsive">
                     <table class="table">
@@ -67,7 +67,7 @@
             </div>
             <!-- FIN Tabla de cargos -->
             <!-- Tabla de responsabilidades -->
-            <div class="card-body" *ngIf="empresa && cargo">
+            <div class="card-body">
 
                 <h4 class="card-title"> Responsabilidades </h4>
                 <button data-toggle="modal" data-target="#modal_empresa" type="button" class="btn waves-effect waves-light btn-outline-info pull-right">Añadir Responsabilidad</button>
@@ -103,28 +103,70 @@
                     <h4 class="modal-title" id="myModalLabel">Nueva Empresa</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
-                <div class="modal-body">
-                    <div class="card card-body">
-                        <div class="row">
-                            <div class="col-sm-12 col-xs-12">
-                                <form>
+                <form #empresas="ngForm" name="empresa" ngNativeValidate (ngSubmit)="ingresar_empresa(empresas)">
+                    <div class="modal-body">
+                        <div class="card card-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+
                                     <div class="form-group">
                                         <label>Nombre de la Empresa</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" [(ngModel)]="empresa.nombre" placeholder="Ej: VMCA" name="nombre_emp" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Industria</label>
-                                        <input type="text" class="form-control" placeholder="Ej: Eléctrica">
+                                        <input type="text" class="form-control" [(ngModel)]="empresa.industria" placeholder="Ej: Eléctrica" name="industria_emp" required>
                                     </div>
-                                </form>
+
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Guardar</button>
+                        <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal_cargos" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Nuevo Cargo</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Guardar</button>
-                    <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cancelar</button>
-                </div>
+                <form #empresa="ngForm" (ngSubmit)="ingresar_empresa(empresa)">
+                    <div class="modal-body">
+                        <div class="card card-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+
+                                    <div class="form-group">
+                                        <label>Nombre del Cargo</label>
+                                        <input type="text" class="form-control" name="cargo" placeholder="Consulto Abap">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Fecha de Inicio</label>
+                                        <input type="text" class="form-control mydatepicker" placeholder="mm/dd/aaaa" name="fecha_inicio">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Fecha Fin</label>
+                                        <input type="text" class="form-control mydatepicker" placeholder="mm/dd/aaaa" name="fecha_fin">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Guardar</button>
+                        <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { UsuarioService } from '../../services/usuario/usuario.service';
+
+declare var $;
 
 @Component({
   selector: 'app-experiencia',
@@ -11,6 +15,7 @@ export class ExperienciaComponent implements OnInit {
   empresa: string = '';
   cargo: string = '';
   mostrar: boolean = false;
+
 
   modelo_empresa = [
     {
@@ -60,18 +65,23 @@ export class ExperienciaComponent implements OnInit {
       'descripcion': 'Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.'
     }
   ];
-
-  constructor( public ar: ActivatedRoute, public router: Router ) {
+  usuario:any;
+  constructor( public ar: ActivatedRoute, public router: Router, public _us: UsuarioService ) {
 
     this.ar.params.subscribe( params => {
       this.empresa = params['empresa'];
       this.cargo = params['cargo'];
+      this.usuario = this._us.info_usuario;
+      console.log(this.empresa);
+      console.log(this.cargo);
     });
 
   }
 
   ngOnInit() {
+    $('.mydatepicker').datepicker();
   }
+
 
   ver_cargos(id_empresa){
     this.empresa = id_empresa;
@@ -91,6 +101,20 @@ export class ExperienciaComponent implements OnInit {
 
   volver_cargos(){
     this.cargo = '';
+  }
+
+
+  //datos personales
+  ingresar_empresa(empresas: NgForm){
+    this._us.crear_empresa(empresas.value, this.usuario.id_usuario)
+     .subscribe( resp => {
+     $('#modal_empresa').modal('hide');
+     //console.log(empresas.value);
+     });
+
+    
+   
+    //cerrar empresa
   }
 
 }
