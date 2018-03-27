@@ -75,6 +75,7 @@
                                 <div class="form-group">
                                     <label>Rol del Sistema</label>
                                     <select class="form-control custom-select" ngModel name="id_rol" required>
+                                        <option value="">-- Selecciona un Rol --</option>
                                         <option *ngFor="let rol of roles" [value]="rol.id">{{rol.nombre}}</option>
                                     </select>
                                 </div>
@@ -82,8 +83,11 @@
                         </div>
                     </div>
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Guardar</button>
-                        <button type="button" class="btn btn-inverse">Volver</button>
+                        <button type="submit" class="btn btn-info" [disabled]="_us.cargando"> <i *ngIf="!cargando" class="fa fa-check"></i>
+                            <i *ngIf="_us.cargando" class="fa fa-spin fa-refresh"></i>
+                            Guardar
+                        </button>
+                        <button type="button" routerLink="/admin/usuarios" class="btn btn-inverse">Volver</button>
                     </div>
                 </form>
             </div>

@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-
 import { Observable } from 'rxjs/Observable'
+import 'rxjs/add/observable/throw';
 
 
 declare var swal;
@@ -22,6 +22,7 @@ export class UsuarioService {
   info_usuario: any;
   empresas_usuario: any;
   empresa: any;
+  cargando: boolean = false;
 
   constructor( public http: HttpClient, public router: Router ) { 
     
@@ -42,6 +43,7 @@ export class UsuarioService {
   }
 
   iniciar_sesion( usuario: Usuario, recordar: boolean = false ) {
+    this.cargando = true;
     let url = URL_SERVICIOS + 'login';
 
     return this.http.post( url, usuario)
@@ -55,6 +57,11 @@ export class UsuarioService {
                   localStorage.setItem('token',this.token);
                 }
                 return true;
+            })
+            .catch( err => {
+              swal("Error al iniciar Sesión", err.error.mensaje, "error");
+              this.cargando = false;
+              return Observable.throw( err );
             });
   }
 
@@ -157,8 +164,7 @@ export class UsuarioService {
               if(resp.err){
                 swal("Ocurrio un error", resp.mensaje, "error");
               }else{
-                localStorage.removeItem("info_usuario");
-                //this.setear = false;
+                //localStorage.removeItem("info_usuario");
                 swal("Listo!", resp.mensaje, "success");
               }
               return true;
@@ -193,9 +199,11 @@ export class UsuarioService {
   }
 
   traer_info_usuario(id_usuario){
+    this.cargando = true;
     let url = URL_SERVICIOS + 'usuarios/'+id_usuario+'/?token=' + this.token;
     return this.http.get(url)
                     .map( (resp:any) => {
+                      this.cargando = false;
                       return resp.Usuarios[0];
                     });
   }
@@ -256,7 +264,6 @@ export class UsuarioService {
 
 
   eliminar_empresa(empresa: any){
-    //console.log("enlace para eliminar", url);
 
     let url = URL_SERVICIOS + 'experiencia/empresa/'+ empresa +'?token='+this.token;
         console.log("enlace", url);
@@ -281,19 +288,33 @@ export class UsuarioService {
       'fecha_fin': '2018-02-02'
     }
 
-    //console.log("cargo a crear", objeto);
     return this.http.post(url, objeto)
     
     .map( (resp:any) => {
       if(resp.err){
         swal("Ocurrio un error", resp.mensaje, "error");
       }else{
-        //this.setear = false;
         swal("Listo!", resp.mensaje, "success");
       }
       return true;
     });
 
+  }
+
+  crear_usuario(usuario){
+    this.cargando = true;
+    let url = URL_SERVICIOS + 'usuarios/?token='+this.token;
+    return this.http.post(url,usuario)
+                    .map( (resp:any) => {
+                      swal("Listo!", resp.mensaje, "success");
+                      this.cargando = false;
+                      return true;
+                    })
+                    .catch( err => {
+                      swal('Usuario invalido',err.error.mensaje,'error');
+                      this.cargando = false;
+                      return Observable.throw(err);
+                    })
   }
 
 

@@ -14,7 +14,6 @@ declare function init_plugins();
 export class LoginComponent implements OnInit {
 
   recuerdame: boolean = false;
-  cargando: boolean = false;
 
   constructor( public _us: UsuarioService, public router: Router ) { 
     if( this._us.token.length > 2 ){
@@ -31,13 +30,10 @@ export class LoginComponent implements OnInit {
     if( forma.invalid ){
       return;
     }
-
-    this.cargando = true;
     let usuario = new Usuario( forma.value.email, forma.value.password );
 
     this._us.iniciar_sesion( usuario, this.recuerdame )
             .subscribe( resp => {
-                this.cargando = false;
                 if( this._us.setear ){
                   this.router.navigate(['/nuevapass', forma.value.email]);
                 }else{

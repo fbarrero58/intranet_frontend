@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Usuario } from '../../../models/usuario.model';
 import { GeneralesService } from '../../../services/generales.service';
+import { UsuarioService } from '../../../services/usuario/usuario.service';
 
 declare var $;
 
@@ -14,7 +15,7 @@ export class NuevoUsuarioComponent implements OnInit {
 
   roles:any;
 
-  constructor(public _gs: GeneralesService) { 
+  constructor(public _gs: GeneralesService, public _us: UsuarioService) { 
     this._gs.cargar_roles()
             .subscribe((resp:any) => {
               this.roles = resp.roles;
@@ -42,9 +43,10 @@ export class NuevoUsuarioComponent implements OnInit {
       'fecha_nacimiento': forma.value.fecha_nacimiento,
       'direccion': '',
       'pais_origen': '',
-      'pais_destiono': ''
+      'pais_residencia': ''
     };
-    console.log(objeto_usuario);
+    this._us.crear_usuario(objeto_usuario)
+            .subscribe(resp => {});
   }
 
 

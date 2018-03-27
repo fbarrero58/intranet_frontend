@@ -11,6 +11,7 @@ declare var $;
 export class UsuariosComponent implements OnInit {
 
   usuarios: any;
+  cargando: boolean = true;
 
   constructor(public _us: UsuarioService) { 
   }
@@ -20,6 +21,7 @@ export class UsuariosComponent implements OnInit {
             .subscribe( (resp:any) => {
               this.usuarios = resp.Usuarios;
               this.listar_usuarios();
+              this.cargando = false;
             });
   }
 
