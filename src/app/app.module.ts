@@ -13,6 +13,7 @@ import { UsuarioService } from './services/usuario/usuario.service';
 import { SidebarService } from './services/sidebar.service';
 import { LoginGuardGuard } from './services/guards/login-guard.guard';
 import { EmpresaService } from './services/empresa/empresa.service';
+import { GeneralesService } from './services/generales.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -43,8 +44,13 @@ import { NuevapassComponent } from './nuevapass/nuevapass.component';
   providers: [
     UsuarioService,
     SidebarService,
+<<<<<<< HEAD
     LoginGuardGuard,
     EmpresaService
+=======
+    GeneralesService,
+    LoginGuardGuard
+>>>>>>> 2a844c0d3d785f6c1d9d11cea892f4d7bbb8d9e3
   ],
   bootstrap: [AppComponent]
 })
