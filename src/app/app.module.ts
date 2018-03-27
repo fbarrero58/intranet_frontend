@@ -12,6 +12,7 @@ import { PageModule } from './pages/pages.module';
 import { UsuarioService } from './services/usuario/usuario.service';
 import { SidebarService } from './services/sidebar.service';
 import { LoginGuardGuard } from './services/guards/login-guard.guard';
+import { EmpresaService } from './services/empresa/empresa.service';
 import { GeneralesService } from './services/generales.service';
 
 import { AppComponent } from './app.component';
@@ -21,6 +22,7 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import { NuevapassComponent } from './nuevapass/nuevapass.component';
+
 
 
 
@@ -42,6 +44,8 @@ import { NuevapassComponent } from './nuevapass/nuevapass.component';
   providers: [
     UsuarioService,
     SidebarService,
+    LoginGuardGuard,
+    EmpresaService,
     GeneralesService,
     LoginGuardGuard
   ],

@@ -25,6 +25,7 @@ export class UsuariosComponent implements OnInit {
             });
   }
 
+
   listar_usuarios(){
     let info_usuarios = [];
     let data_aux;

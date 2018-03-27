@@ -16,6 +16,10 @@ export class SidebarService {
         {
           'nombre': 'Proyectos',
           'url': '/admin/proyectos'
+        },
+        {
+          'nombre': 'Empresas',
+          'url': '/admin/empresas'
         }
       ]
     }

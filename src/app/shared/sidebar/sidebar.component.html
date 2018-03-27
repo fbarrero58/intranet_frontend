@@ -22,7 +22,7 @@
                     </a>
                     <ul aria-expanded="false" class="collapse" *ngFor="let subside of side.hijos">
                         <li>
-                            <a [routerLink]="subside.url">{{ subside.nombre }} </a>
+                            <a [routerLink]="subside.url" routerLinkActive="active">{{ subside.nombre }} </a>
                         </li>
                     </ul>
                 </li>

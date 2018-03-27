@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form class="form-horizontal" [formGroup]="forma" (ngSubmit)="crear_empresa()">
+                    <div class=" form-body ">
+                        <h3 class="card-title ">Información Empresa</h3>
+                        <hr>
+                        <div class="row p-t-20 ">
+                            <div class="col-md-6 ">
+                                <div class="form-group ">
+                                    <label class="control-label ">Nombre</label>
+                                    <input type="text " class="form-control " name="nombre " formControlName="nombre" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class="form-group ">
+                                    <label class="control-label ">Codigo</label>
+                                    <input type="text " class="form-control " name="codigo" formControlName="codigo" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-md-6 ">
+                                <div class="form-group ">
+                                    <label>Tipo Empresa</label>
+                                    <select class="form-control custom-select " name="id_empresa " required>
+                                            <option *ngFor="let tipo of tipo_empresa "   [value]="tipo.id ">{{tipo.nombre}}</option>
+                                     </select>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class="form-group ">
+                                    <label class="control-label ">Alias</label>
+                                    <input type="text " class="form-control " name="alias" formControlName="alias">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-md-6 ">
+                                <div class="form-group ">
+                                    <label class="control-label ">Condicion de pago</label>
+                                    <input type="text " class="form-control " name="condicion_pago" formControlName="condicion_pago" required>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="form-actions ">
+                        <button type="submit " class="btn btn-success "> <i class="fa fa-check "></i> Guardar</button>
+                        <button type="button " class="btn btn-inverse ">Volver</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

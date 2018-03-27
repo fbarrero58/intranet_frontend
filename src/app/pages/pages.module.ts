@@ -15,6 +15,12 @@ import { ExperienciaComponent } from './experiencia/experiencia.component';
 import { UsuariosComponent } from './admin/usuarios/usuarios.component';
 import { UsuarioComponent } from './admin/usuarios/usuario.component';
 import { NuevoUsuarioComponent } from './admin/usuarios/nuevo-usuario.component';
+import { ProyectosComponent } from './admin/proyectos/proyectos.component';
+import { ProyectoComponent } from './admin/proyectos/proyecto.component';
+import { NuevoProyectoComponent } from './admin/proyectos/nuevo-proyecto.component';
+import { EmpresasComponent } from './admin/empresas/empresas.component';
+import { EmpresaComponent } from './admin/empresas/empresa.component';
+import { NuevaEmpresaComponent } from './admin/empresas/nueva-empresa.component';
 
 
 @NgModule({
@@ -28,7 +34,13 @@ import { NuevoUsuarioComponent } from './admin/usuarios/nuevo-usuario.component'
         ExperienciaComponent,
         UsuariosComponent,
         UsuarioComponent,
-        NuevoUsuarioComponent
+        NuevoUsuarioComponent,
+        ProyectosComponent,
+        ProyectoComponent,
+        NuevoProyectoComponent,
+        EmpresasComponent,
+        EmpresaComponent,
+        NuevaEmpresaComponent
     ],
     exports:[
         PagesComponent,
