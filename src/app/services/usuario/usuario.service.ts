@@ -20,6 +20,8 @@ export class UsuarioService {
   usuario: any;
   token: string = "";
   info_usuario: any;
+  empresas_usuario: any;
+  empresa: any;
 
   constructor( public http: HttpClient, public router: Router ) { 
     
@@ -150,25 +152,25 @@ export class UsuarioService {
       'pais_residencia': usuario.pais_residencia
   }
 
-  localStorage.removeItem("info_usuario");
     return this.http.put(url,objeto)
      .map( (resp:any) => {
               if(resp.err){
                 swal("Ocurrio un error", resp.mensaje, "error");
               }else{
-                this.setear = false;
+                localStorage.removeItem("info_usuario");
+                //this.setear = false;
                 swal("Listo!", resp.mensaje, "success");
               }
               return true;
             });
   }
 
-  crear_empresa(empresa:any, id:any){
+  crear_empresa(empresa:any){
     let url = URL_SERVICIOS + 'experiencia/empresa/?token='+this.token;
     let objeto = {
-      'id_usuario': id,
-      'nombre': empresa.nombre_emp,
-      'industria': empresa.industria_emp
+      'id_usuario': this.info_usuario.id_usuario,
+      'nombre': empresa.nombre,
+      'industria': empresa.industria
     }
 
     return this.http.post(url, objeto)
@@ -197,5 +199,102 @@ export class UsuarioService {
                       return resp.Usuarios[0];
                     });
   }
+ traer_empresa(){
+    let url = URL_SERVICIOS + 'experiencia/'+ this.info_usuario.id_usuario +'?token='+this.token;
+    return this.http.get(url)
+                    .map( (resp:any) => {             
+                     return resp;
+                    });                 
+  }
+
+  traer_cargo(id_empresa: any){
+    let url = URL_SERVICIOS + 'experiencia/'+ this.info_usuario.id_usuario +'?token='+this.token;
+    return this.http.get(url)
+                    .map( (resp:any) => {             
+                     return resp;
+                    });                 
+  }
+
+  modificar_empresa(empresa:any, id_empresa: any){
+    let url = URL_SERVICIOS + 'experiencia/empresa/'+ id_empresa.id +'?token='+this.token;
+    let objeto = {
+      'id_usuario': this.info_usuario.id_usuario,
+      'nombre': empresa.nombre_mod,
+      'industria': empresa.industria_mod
+  }
+
+    return this.http.put(url,objeto)
+     .map( (resp:any) => {
+              if(resp.err){
+                swal("Ocurrio un error", resp.mensaje, "error");
+              }else{            
+                swal("Listo!", resp.mensaje, "success");
+              }
+              return true;
+            });
+  }
+
+  modificar_cargo(cargo:any, id_cargo: any){
+    let url = URL_SERVICIOS + 'experiencia/empresa/'+ id_cargo.id +'?token='+this.token;
+    let objeto = {
+      'id_empresa': this.info_usuario.id_usuario,
+      'nombre': cargo.cargo_mod,
+      'fecha_inicio': cargo.fecha_inicio_mod,
+      'fecha_fin': cargo.fecha_fin_mod
+  }
+
+    return this.http.put(url,objeto)
+     .map( (resp:any) => {
+              if(resp.err){
+                swal("Ocurrio un error", resp.mensaje, "error");
+              }else{            
+                swal("Listo!", resp.mensaje, "success");
+              }
+              return true;
+            });
+  }
+
+
+  eliminar_empresa(empresa: any){
+    //console.log("enlace para eliminar", url);
+
+    let url = URL_SERVICIOS + 'experiencia/empresa/'+ empresa +'?token='+this.token;
+        console.log("enlace", url);
+        return this.http.delete(url)
+
+    .map( (resp:any) => {
+             if(resp.err){
+               swal("Ocurrio un error", resp.mensaje, "error");
+             }else{            
+               swal("Listo!", resp.mensaje, "success");
+             }
+             return true;
+           });  
+  }
+
+  crear_cargo(cargo:any, empresa: any){
+    let url = URL_SERVICIOS + 'experiencia/cargo/?token='+this.token;
+    let objeto = {
+      'id_empresa': empresa,
+      'nombre': cargo.cargo,
+      'fecha_inicio': '2017-02-02',
+      'fecha_fin': '2018-02-02'
+    }
+
+    //console.log("cargo a crear", objeto);
+    return this.http.post(url, objeto)
+    
+    .map( (resp:any) => {
+      if(resp.err){
+        swal("Ocurrio un error", resp.mensaje, "error");
+      }else{
+        //this.setear = false;
+        swal("Listo!", resp.mensaje, "success");
+      }
+      return true;
+    });
+
+  }
+
 
 }
