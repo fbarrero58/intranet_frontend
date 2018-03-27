@@ -25,7 +25,8 @@
                                 <div class="form-group ">
                                     <label>Tipo Empresa</label>
                                     <select class="form-control custom-select " name="id_empresa " required>
-                                            <option *ngFor="let tipo of tipo_empresa "   [value]="tipo.id ">{{tipo.nombre}}</option>
+                                        <option value="">-- Selecciona un tipo de empresa --</option>
+                                        <option *ngFor="let tipo of tipo_empresa " [value]="tipo.id ">{{tipo.nombre}}</option>
                                      </select>
 
                                 </div>

@@ -16,7 +16,7 @@ export class NuevaEmpresaComponent implements OnInit {
   constructor(public _gs: GeneralesService, public _es: EmpresaService) {
     this._gs.cargar_tipo_empresa()
             .subscribe((resp:any) => {
-              this.tipo_empresa = resp.empresas;
+              this.tipo_empresa = resp.tipos;
               console.log("tipos de empresas", this.tipo_empresa)
             });
    }
