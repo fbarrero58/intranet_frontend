@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario/usuario.service';
+import { LoginComponent } from '../../login/login.component';
 
+declare var swal;
 declare var $;
 
 @Component({
@@ -12,44 +14,25 @@ declare var $;
 })
 export class ExperienciaComponent implements OnInit {
 
+  forma: FormGroup;
+  forma_mod: FormGroup;
+  forma_cargo: FormGroup;
+  forma_cargo_mod: FormGroup;
   empresa: string = '';
   cargo: string = '';
+  data_cargo: any;
   mostrar: boolean = false;
+  empresa_seleccionada: any = {
+    nombre: '',
+    industria: ''
+  };
 
+   cargo_seleccionado: any = {
+    nombre: '',
+    fecha_inicio: '',
+    fecha_fin: ''
+  };
 
-  modelo_empresa = [
-    {
-      'id': 1,
-      'nombre': 'Nombre de la empresa 1',
-      'industria': 'Industria Número 1'
-    },
-    {
-      'id': 2,
-      'nombre': 'Nombre de la empresa 2',
-      'industria': 'Industria Número 2'
-    }
-  ];
-
-  modelo_cargos = [
-    {
-      'id': 1,
-      'nombre': 'Cargo 1 - Empresa 1',
-      'fecha_inicio': '2017-12-12',
-      'fecha_fin': '2018-12-12'
-    },
-    {
-      'id': 2,
-      'nombre': 'Cargo 2 - Empresa 1',
-      'fecha_inicio': '2017-12-12',
-      'fecha_fin': '2018-12-12'
-    },
-    {
-      'id': 3,
-      'nombre': 'Cargo 3 - Empresa 1',
-      'fecha_inicio': '2017-12-12',
-      'fecha_fin': '2018-12-12'
-    },
-  ];
 
   modelo_respo = [
     {
@@ -66,27 +49,50 @@ export class ExperienciaComponent implements OnInit {
     }
   ];
   usuario:any;
+  data: any;
   constructor( public ar: ActivatedRoute, public router: Router, public _us: UsuarioService ) {
-
-    this.ar.params.subscribe( params => {
-      this.empresa = params['empresa'];
-      this.cargo = params['cargo'];
-      this.usuario = this._us.info_usuario;
-      console.log(this.empresa);
-      console.log(this.cargo);
+    this._us.traer_empresa()
+    .subscribe( (resp:any) => {
+       this.data = resp;
     });
 
   }
 
   ngOnInit() {
     $('.mydatepicker').datepicker();
-  }
+    this.forma = new FormGroup({
+      nombre: new FormControl(),
+      industria: new FormControl()
+    });
 
+    this.forma_mod = new FormGroup({
+      nombre_mod: new FormControl(),
+      industria_mod: new FormControl()
+    });
 
-  ver_cargos(id_empresa){
-    this.empresa = id_empresa;
-    this.router.navigate(['/experiencia/'+id_empresa]);
+    this.forma_cargo = new FormGroup({
+      cargo: new FormControl(),
+      fecha_inicio: new FormControl(),
+      fecha_fin: new FormControl()
+    });
+
+    this.forma_cargo_mod = new FormGroup({
+      cargo_mod: new FormControl(),
+      fecha_inicio_mod: new FormControl(),
+      fecha_fin_mod: new FormControl()
+    });
+
     
+  }
+  ver_cargos(id_empresa){
+    this._us.traer_cargo(id_empresa)
+    .subscribe( (resp:any) => {
+      this.empresa = id_empresa;
+      this.router.navigate(['/experiencia/'+id_empresa]);
+       this.data_cargo = resp.cargos;
+       console.log (resp);
+       console.log (resp['cargos']);
+    });
   }
 
   ver_respon(id_cargo){
@@ -103,18 +109,73 @@ export class ExperienciaComponent implements OnInit {
     this.cargo = '';
   }
 
-
-  //datos personales
-  ingresar_empresa(empresas: NgForm){
-    this._us.crear_empresa(empresas.value, this.usuario.id_usuario)
+//crear empresa
+  ingresar_empresa(){
+    this._us.crear_empresa(this.forma.value)
      .subscribe( resp => {
-     $('#modal_empresa').modal('hide');
-     //console.log(empresas.value);
+      $('#modal_empresa').modal('hide');
      });
-
-    
-   
-    //cerrar empresa
   }
+
+    //crear cargo
+    ingresar_cargo(){
+      this._us.crear_cargo(this.forma_cargo.value, this.empresa)
+       .subscribe( resp => {
+        $('#modal_cargos').modal('hide');
+       });
+    }
+
+  ver_emp(empresa_ver){
+    this.empresa_seleccionada = empresa_ver;
+    console.log(this.empresa_seleccionada);
+  }
+
+  ver_cargo(cargo_ver){
+    this.cargo_seleccionado = cargo_ver;
+    console.log(this.cargo_seleccionado);
+  }
+
+  //modificar empresa
+  modificar_empresa(){
+    console.log(this.forma_mod.value);
+    this._us.modificar_empresa(this.forma_mod.value, this.empresa_seleccionada)
+     .subscribe( resp => {
+      $('#modal_empresa_modificar').modal('hide');
+     });
+  }
+
+  //modificar cargo
+  modificar_cargo(){
+    //console.log(this.forma_cargo_mod.value);
+    this._us.modificar_cargo(this.forma_cargo_mod.value, this.cargo_seleccionado)
+     .subscribe( resp => {
+      //$('#modal_empresa_modificar').modal('hide');
+     });
+  }
+
+  eliminar_empresa(empresa_el){
+    swal({
+      title: "¿Esta seguro que desea eliminar?",
+      text: "Al eliminar esta empresa se borraran los cargos y las responsabilidades que tenga asociado.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+
+    .then((willDelete) => {
+      if (willDelete) {
+        this._us.eliminar_empresa(empresa_el)
+        .subscribe( resp => {
+         //$('#modal_empresa_modificar').modal('hide');
+     }); 
+      } else {
+        return false
+      }
+    });
+  }
+
+
+
+
 
 }

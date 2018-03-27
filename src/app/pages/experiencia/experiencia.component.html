@@ -16,15 +16,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let empresa of modelo_empresa">
+                            <tr *ngFor="let empresa of data">
                                 <td>{{ empresa.nombre }}</td>
                                 <td>{{ empresa.industria }}</td>
                                 <td>
                                     <button type="button" class="btn waves-effect waves-light btn-sm btn-info" (click)="ver_cargos(empresa.id)">Ver Cargos</button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-sm waves-effect waves-light btn-warning"><i class="fa fa-pencil"></i></button>
-                                    <button type="button" class="btn btn-sm waves-effect waves-light btn-danger"><i class="fa fa-trash"></i></button>
+                                    <button type="button" class="btn btn-sm waves-effect waves-light btn-warning" data-toggle="modal" data-target="#modal_empresa_modificar" (click)="ver_emp(empresa)"><i class="fa fa-pencil"></i></button>
+                                    <button type="button" class="btn btn-sm waves-effect waves-light btn-danger"><i class="fa fa-trash" (click)="eliminar_empresa(empresa.id)" ></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -49,7 +49,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let cargo of modelo_cargos">
+                            <tr *ngFor="let cargo of data_cargo">
                                 <td>{{ cargo.nombre }}</td>
                                 <td>{{ cargo.fecha_inicio }}</td>
                                 <td>{{ cargo.fecha_fin }}</td>
@@ -57,7 +57,7 @@
                                     <button type="button" class="btn waves-effect waves-light btn-sm btn-info" (click)="ver_respon(cargo.id)">Ver Responsabilidades</button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-sm waves-effect waves-light btn-warning"><i class="fa fa-pencil"></i></button>
+                                    <button type="button" class="btn btn-sm waves-effect waves-light btn-warning" data-toggle="modal" data-target="#modal_cargos_modificar" (click)="ver_cargo(cargo)"><i class="fa fa-pencil"></i></button>
                                     <button type="button" class="btn btn-sm waves-effect waves-light btn-danger"><i class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
@@ -96,6 +96,7 @@
             <!-- FIN Tabla de responsabilidades -->
         </div>
     </div>
+    <!-- Nueva Empresa -->
     <div id="modal_empresa" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -103,7 +104,7 @@
                     <h4 class="modal-title" id="myModalLabel">Nueva Empresa</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
-                <form #empresas="ngForm" name="empresa" ngNativeValidate (ngSubmit)="ingresar_empresa(empresas)">
+                <form [formGroup]="forma" (ngSubmit)="ingresar_empresa()">
                     <div class="modal-body">
                         <div class="card card-body">
                             <div class="row">
@@ -111,11 +112,11 @@
 
                                     <div class="form-group">
                                         <label>Nombre de la Empresa</label>
-                                        <input type="text" class="form-control" [(ngModel)]="empresa.nombre" placeholder="Ej: VMCA" name="nombre_emp" required>
+                                        <input formControlName="nombre" name="nombre" type="text" class="form-control" placeholder="Ej: VMCA" name="nombre_emp" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Industria</label>
-                                        <input type="text" class="form-control" [(ngModel)]="empresa.industria" placeholder="Ej: Eléctrica" name="industria_emp" required>
+                                        <input formControlName="industria" name="industria" type="text" class="form-control" placeholder="Ej: Eléctrica" name="industria_emp" required>
                                     </div>
 
                                 </div>
@@ -130,7 +131,8 @@
             </div>
         </div>
     </div>
-
+    <!-- FIN Nueva Empresa -->
+    <!-- Nuevo Cargo -->
     <div id="modal_cargos" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -138,7 +140,7 @@
                     <h4 class="modal-title" id="myModalLabel">Nuevo Cargo</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
-                <form #empresa="ngForm" (ngSubmit)="ingresar_empresa(empresa)">
+                <form [formGroup]="forma_cargo" (ngSubmit)="ingresar_cargo()">
                     <div class="modal-body">
                         <div class="card card-body">
                             <div class="row">
@@ -146,16 +148,16 @@
 
                                     <div class="form-group">
                                         <label>Nombre del Cargo</label>
-                                        <input type="text" class="form-control" name="cargo" placeholder="Consulto Abap">
+                                        <input type="text" class="form-control" formControlName="cargo" name="cargo" placeholder="Consulto Abap">
                                     </div>
                                     <div class="form-group">
                                         <label>Fecha de Inicio</label>
-                                        <input type="text" class="form-control mydatepicker" placeholder="mm/dd/aaaa" name="fecha_inicio">
+                                        <input type="text" class="form-control mydatepicker" formControlName="fecha_inicio" placeholder="mm/dd/aaaa" name="fecha_inicio">
                                     </div>
 
                                     <div class="form-group">
                                         <label>Fecha Fin</label>
-                                        <input type="text" class="form-control mydatepicker" placeholder="mm/dd/aaaa" name="fecha_fin">
+                                        <input type="text" class="form-control mydatepicker" formControlName="fecha_fin" placeholder="mm/dd/aaaa" name="fecha_fin">
                                     </div>
 
                                 </div>
@@ -170,4 +172,80 @@
             </div>
         </div>
     </div>
+    <!-- FIN Nuevo Cargo -->
+    <!-- Modificar Empresa -->
+    <div id="modal_empresa_modificar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Modificar Empresa</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <form [formGroup]="forma_mod" (ngSubmit)="modificar_empresa()">
+                    <div class="modal-body">
+                        <div class="card card-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+
+                                    <div class="form-group">
+                                        <label>Nombre de la Empresa</label>
+                                        <input type="text" class="form-control" formControlName="nombre_mod" name="nombre_mod" [(ngModel)]="empresa_seleccionada.nombre" placeholder="Ej: VMCA" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Industria</label>
+                                        <input type="text" class="form-control" formControlName="industria_mod" name="industria_mod" [(ngModel)]="empresa_seleccionada.industria" placeholder="Ej: Eléctrica" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Guardar</button>
+                        <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modificar Cargo -->
+    <div id="modal_cargos_modificar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Nuevo Cargo</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <form [formGroup]="forma_cargo_mod" (ngSubmit)="modificar_cargo()">
+                    <div class="modal-body">
+                        <div class="card card-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+
+                                    <div class="form-group">
+                                        <label>Nombre del Cargo</label>
+                                        <input type="text" class="form-control" formControlName="cargo_mod" name="cargo_mod" placeholder="Consulto Abap">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Fecha de Inicio</label>
+                                        <input type="text" class="form-control mydatepicker" formControlName="fecha_inicio_mod" placeholder="mm/dd/aaaa" name="fecha_inicio_mod">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Fecha Fin</label>
+                                        <input type="text" class="form-control mydatepicker" formControlName="fecha_fin_mod" placeholder="mm/dd/aaaa" name="fecha_fin_mod">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Guardar</button>
+                        <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- FIN Modificar Cargo -->
 </div>
