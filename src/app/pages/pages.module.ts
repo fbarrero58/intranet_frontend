@@ -12,6 +12,9 @@ import { RegistroHorasComponent } from './registro-horas/registro-horas.componen
 import { PerfilComponent } from './perfil/perfil.component';
 import { EducacionComponent } from './educacion/educacion.component';
 import { ExperienciaComponent } from './experiencia/experiencia.component';
+import { UsuariosComponent } from './admin/usuarios/usuarios.component';
+import { UsuarioComponent } from './admin/usuarios/usuario.component';
+import { NuevoUsuarioComponent } from './admin/usuarios/nuevo-usuario.component';
 
 
 @NgModule({
@@ -22,7 +25,10 @@ import { ExperienciaComponent } from './experiencia/experiencia.component';
         RegistroHorasComponent,
         PerfilComponent,
         EducacionComponent,
-        ExperienciaComponent
+        ExperienciaComponent,
+        UsuariosComponent,
+        UsuarioComponent,
+        NuevoUsuarioComponent
     ],
     exports:[
         PagesComponent,

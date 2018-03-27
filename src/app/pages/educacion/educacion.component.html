@@ -1,3 +1,112 @@
-<p>
-    educacion works!
-</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"> Estudios </h4>
+                <button data-toggle="modal" data-target="#modal_add" type="button" class="btn waves-effect waves-light btn-outline-info pull-right">Añadir Estudio</button>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Institución</th>
+                                <th>Titulo</th>
+                                <th>Tipo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let estudio of modelo_estudios">
+                                <td>{{ estudio.institucion }}</td>
+                                <td>{{ estudio.titulo }}</td>
+                                <td>{{ estudio.tipo_estudio }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm waves-effect waves-light btn-warning"><i class="fa fa-pencil"></i></button>
+                                    <button type="button" class="btn btn-sm waves-effect waves-light btn-danger"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="modal_add" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <form>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Nuevo Estudio</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="card card-body m-b-5" style="padding-bottom:0">
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Institución</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Titulo</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Fecha de Inicio</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Fecha de Fin</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">País</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-body">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-6">
+                                <input name="tipo_estudio" type="radio" id="pregrado" class="radio-col-teal" checked />
+                                <label for="pregrado">Pregrado</label>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <input name="tipo_estudio" type="radio" id="posgrado" class="radio-col-teal" />
+                                <label for="posgrado">Posgrado</label>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <input name="tipo_estudio" type="radio" id="certificacion" class="radio-col-teal" />
+                                <label for="certificacion">Certificación</label>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <input name="tipo_estudio" type="radio" id="otros" class="radio-col-teal" />
+                                <label for="otros">Otros</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info waves-effect text-left">Guardar</button>
+                    <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </form>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

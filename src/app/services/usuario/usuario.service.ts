@@ -25,17 +25,14 @@ export class UsuarioService {
     
     this.cargar_storage();
   }
-
+  
   cargar_storage(){
-    
     if( localStorage.getItem('token') ){
       this.token = localStorage.getItem('token');
     }
-
     if( localStorage.getItem('info_usuario') ){
       this.info_usuario = JSON.parse(localStorage.getItem('info_usuario'));
     }
-
   }
 
   esta_logueado(){
@@ -118,9 +115,9 @@ export class UsuarioService {
       'direccion': form.direccion,
       'pais_origen': form.pais_origen,
       'pais_residencia': form.pais_residencia
-  }
+    }
 
-  localStorage.removeItem("info_usuario");
+    localStorage.removeItem("info_usuario");
 
     return this.http.put(url,objeto)
      .map( (resp:any) => {
@@ -174,39 +171,31 @@ export class UsuarioService {
       'industria': empresa.industria_emp
     }
 
-    //console.log(objeto);
-
     return this.http.post(url, objeto)
-    
-    .map( (resp:any) => {
-      if(resp.err){
-        swal("Ocurrio un error", resp.mensaje, "error");
-      }else{
-        //this.setear = false;
-        swal("Listo!", resp.mensaje, "success");
-      }
-      return true;
-    });
+                    .map( (resp:any) => {
+                      if(resp.err){
+                        swal("Ocurrio un error", resp.mensaje, "error");
+                      }else{
+                        swal("Listo!", resp.mensaje, "success");
+                      }
+                      return true;
+                    });
 
   }
 
-  
-  /*iniciar_sesion( usuario: Usuario, recordar: boolean = false ) {
-    let url = URL_SERVICIOS + 'login';
+  todos_usuarios(){
 
-    return this.http.post( url, usuario)
-            .map( (resp:any) => {
-                if( resp.setear ){
-                  this.setear = true;
-                  this.usuario = resp.id_usuario;
-                }else{
-                  this.usuario = resp.id_usuario;
-                  this.token = resp.token;
-                  localStorage.setItem('token',this.token);
-                }
-                return true;
-            });
-  }*/
-  
+    let url = URL_SERVICIOS + 'usuarios/?token=' + this.token;
+    return this.http.get(url);
+
+  }
+
+  traer_info_usuario(id_usuario){
+    let url = URL_SERVICIOS + 'usuarios/'+id_usuario+'/?token=' + this.token;
+    return this.http.get(url)
+                    .map( (resp:any) => {
+                      return resp.Usuarios[0];
+                    });
+  }
 
 }

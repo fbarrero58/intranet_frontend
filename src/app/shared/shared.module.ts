@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import {CommonModule} from '@angular/common';
 
 import { RouterModule } from '@angular/router';
 
@@ -10,7 +11,8 @@ import { BreadcrumsComponent } from './breadcrums/breadcrums.component';
 @NgModule({
 
     imports: [
-        RouterModule
+        RouterModule,
+        CommonModule
     ],
     declarations: [
         HeaderComponent,
