@@ -33,8 +33,6 @@ export class EmpresaService {
     }
   }
 
-  
-
   modificar_empresa(empresa:any, id_empresa: any){
     let url = URL_SERVICIOS + 'empresas/'+ id_empresa.id +'?token='+ this.token;
    
@@ -64,7 +62,29 @@ export class EmpresaService {
             });
   }
 
+  crear_empresa(empresa:any){
+    let url = URL_SERVICIOS + 'empresas/?token='+ this.token;
+    let objeto = {
+      'tipo_empresa': '1',
+      'codigo': empresa.codigo,
+      'nombre': empresa.nombre,
+      'habilitado': 'T',
+      'alias': empresa.alias,
+      'condicion_pago': empresa.condicion_pago
+  }
+
+  console.log("objeto", objeto);
+
+    return this.http.post(url,objeto)
+     .map( (resp:any) => {
+              if(resp.err){
+                swal("Ocurrio un error", resp.mensaje, "error");
+              }else{            
+                swal("Listo!", resp.mensaje, "success");
+              }
+              return true;
+            });
+  }
 
   
-
 }

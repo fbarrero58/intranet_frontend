@@ -23,7 +23,7 @@ export class EmpresaComponent implements OnInit {
       this._us.traer_info_empresa(id)
             .subscribe( resp => {
               this.empresa = resp;
-              console.log (this.empresa);
+              //console.log (this.empresa);
             });
     });
     

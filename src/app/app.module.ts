@@ -44,13 +44,10 @@ import { NuevapassComponent } from './nuevapass/nuevapass.component';
   providers: [
     UsuarioService,
     SidebarService,
-<<<<<<< HEAD
     LoginGuardGuard,
-    EmpresaService
-=======
+    EmpresaService,
     GeneralesService,
     LoginGuardGuard
->>>>>>> 2a844c0d3d785f6c1d9d11cea892f4d7bbb8d9e3
   ],
   bootstrap: [AppComponent]
 })

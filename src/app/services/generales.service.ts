@@ -13,4 +13,10 @@ export class GeneralesService {
       return this.http.get(url);
   }
 
+  cargar_tipo_empresa(){
+    let url = URL_SERVICIOS + 'vmca/tipoempresa/?token='+localStorage.getItem('token');
+    return this.http.get(url);
+   
+}
+
 }

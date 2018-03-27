@@ -24,7 +24,7 @@ export class EmpresasComponent implements OnInit {
               .subscribe( (resp:any) => {
                 this.empresas = resp.empresas;
                 this.listar_empresas();
-                console.log(resp);
+                //console.log(resp);
               });
   }
 
