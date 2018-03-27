@@ -12,6 +12,7 @@ import { PageModule } from './pages/pages.module';
 import { UsuarioService } from './services/usuario/usuario.service';
 import { SidebarService } from './services/sidebar.service';
 import { LoginGuardGuard } from './services/guards/login-guard.guard';
+import { GeneralesService } from './services/generales.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -41,6 +42,7 @@ import { NuevapassComponent } from './nuevapass/nuevapass.component';
   providers: [
     UsuarioService,
     SidebarService,
+    GeneralesService,
     LoginGuardGuard
   ],
   bootstrap: [AppComponent]
