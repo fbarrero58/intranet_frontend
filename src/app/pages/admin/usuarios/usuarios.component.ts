@@ -20,8 +20,10 @@ export class UsuariosComponent implements OnInit {
             .subscribe( (resp:any) => {
               this.usuarios = resp.Usuarios;
               this.listar_usuarios();
+              //console.log (this.usuarios );
             });
   }
+
 
   listar_usuarios(){
     let info_usuarios = [];

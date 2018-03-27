@@ -192,6 +192,12 @@ export class UsuarioService {
 
   }
 
+  todos_empresas(){
+    let url = URL_SERVICIOS + 'empresas/?token=' + this.token;
+    return this.http.get(url);
+
+  }
+
   traer_info_usuario(id_usuario){
     let url = URL_SERVICIOS + 'usuarios/'+id_usuario+'/?token=' + this.token;
     return this.http.get(url)
@@ -199,6 +205,18 @@ export class UsuarioService {
                       return resp.Usuarios[0];
                     });
   }
+
+  traer_info_empresa(id_empresa){
+    let url = URL_SERVICIOS + 'empresas/'+id_empresa+'/?token=' + this.token;
+    return this.http.get(url)
+                    .map( (resp:any) => {
+                      return resp.empresa[0];
+                    });
+  }
+
+
+
+
  traer_empresa(){
     let url = URL_SERVICIOS + 'experiencia/'+ this.info_usuario.id_usuario +'?token='+this.token;
     return this.http.get(url)
@@ -295,6 +313,9 @@ export class UsuarioService {
     });
 
   }
+
+
+
 
 
 }
