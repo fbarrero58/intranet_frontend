@@ -20,9 +20,7 @@ export class PerfilComponent implements OnInit {
     this.usuario = this._us.info_usuario;
    }
 
-  ngOnInit() {
-    $('.mydatepicker').datepicker();
-  }
+  ngOnInit() {}
 
   //datos personales
   modificar(datospersonales: NgForm){
@@ -30,28 +28,10 @@ export class PerfilComponent implements OnInit {
     if( datospersonales.invalid ){
       return;
     }
-  
-    this._us.modificar_usuario(datospersonales.value,this.usuario)
-     .subscribe( resp => {
-        this._us.traer_info()
-        .subscribe( resp => {});
-     });
+    this._us.modificar_usuario(this.usuario)
+            .subscribe( resp => {});
+
   }
 
-
-//datos informacion
- modificar_info(perfil: NgForm){
-  /*this._us.modificar_informacion(perfil.value,this.usuario)
-  .subscribe( resp => {
-     this._us.traer_info()
-     .subscribe( resp => 
-       console.log("informacion"+ resp)
-   );
-
-  });*/
-
-  console.log("imprimir empresa");
-}
- 
 
 }

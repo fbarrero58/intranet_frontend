@@ -70,7 +70,7 @@ export class UsuarioService {
 
     let objeto = {
       'id': this.usuario,
-      'pass': password
+      'password': password
     };
 
     return this.http.put(url,objeto)
@@ -105,70 +105,18 @@ export class UsuarioService {
     this.router.navigate(['/login']);
   }
 
-  modificar_usuario(form:any, usuario: any){
-
+  modificar_usuario(usuario: Usuario, externo:boolean = false){
+    this.cargando = true;
     let url = URL_SERVICIOS + 'usuarios/'+ usuario.id +'?token='+this.token;
-
-    let objeto = {
-      'id_rol': usuario.id_rol,
-      'cargo': usuario.cargo,
-      'fecha_vinculacion': usuario.fecha_vinculacion,
-      'foto': 'foto prueba',
-      'perfil_profesional': usuario.perfil_profesional,
-      'nombres': form.nombres,
-      'apellidos': form.apellidos,
-      'rut': form.rut,
-      'correo_personal': usuario.correo_personal,
-      'celular': form.celular,
-      'fecha_nacimiento': '2018-05-08',
-      'direccion': form.direccion,
-      'pais_origen': form.pais_origen,
-      'pais_residencia': form.pais_residencia
-    }
-
-    localStorage.removeItem("info_usuario");
-
-    return this.http.put(url,objeto)
-     .map( (resp:any) => {
-              if(resp.err){
-                swal("Ocurrio un error", resp.mensaje, "error");
-              }else{
-                this.setear = false;
-                swal("Listo!", resp.mensaje, "success");
-              }
-              return true;
-            });
-  }
-
-  modificar_informacion(perfil:any,usuario: any){
-    let url = URL_SERVICIOS + 'usuarios/'+ usuario.id +'?token='+this.token;
-    let objeto = {
-      'id_rol': usuario.id_rol,
-      'cargo': usuario.cargo,
-      'fecha_vinculacion': usuario.fecha_vinculacion,
-      'foto': 'foto prueba',
-      'perfil_profesional': perfil.perfil_profesional,
-      'nombres': usuario.nombres,
-      'apellidos': usuario.apellidos,
-      'rut': usuario.rut,
-      'correo_personal': usuario.correo_personal,
-      'celular': usuario.celular,
-      'fecha_nacimiento': '2018-05-08',
-      'direccion': usuario.direccion,
-      'pais_origen': usuario.pais_origen,
-      'pais_residencia': usuario.pais_residencia
-  }
-
-    return this.http.put(url,objeto)
-     .map( (resp:any) => {
-              if(resp.err){
-                swal("Ocurrio un error", resp.mensaje, "error");
-              }else{
-                //localStorage.removeItem("info_usuario");
-                swal("Listo!", resp.mensaje, "success");
-              }
-              return true;
-            });
+    return this.http.put(url,usuario)
+                    .map( (resp:any) => {
+                      if(!externo){
+                        localStorage.setItem('info_usuario',JSON.stringify(usuario));
+                      }
+                      swal("Listo!", resp.mensaje, "success");
+                      this.cargando = false;
+                      return true;
+                    });
   }
 
   crear_empresa(empresa:any){
@@ -333,6 +281,15 @@ export class UsuarioService {
                       this.cargando = false;
                       return Observable.throw(err);
                     })
+  }
+
+  traer_modulos_usuario(id_usuario){
+    this.cargando = true;
+    let url = URL_SERVICIOS + 'usuarios/modulo/'+id_usuario+'/?token='+this.token;
+    return this.http.get(url)
+                    .map( (resp:any) => {
+                      return resp.modulos;
+                    });
   }
 
 

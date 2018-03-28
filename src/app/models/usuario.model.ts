@@ -2,7 +2,7 @@ export class Usuario{
 
     constructor(
         public correo: string,
-        public pass: string,
+        public password: string,
         public nombres?: string,
         public apellidos?: string,
         public cargo?: string,
