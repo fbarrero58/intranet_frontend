@@ -73,21 +73,21 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label" id="ocultar">Fecha de Nacimiento</label>
-                                        <input type="text" class="form-control mydatepicker" placeholder="mm/dd/aaaa" name="fecha_nac">
+                                        <label class="control-label">Fecha de Nacimiento</label>
+                                        <input type="date" class="form-control" [(ngModel)]="usuario.fecha_nacimiento" placeholder="mm/dd/aaaa" name="fecha_nacimiento">
                                     </div>
                                 </div>
                             </div>
                             <div class="row p-t-20">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label" id="ocultar">País de Origen</label>
+                                        <label class="control-label">País de Origen</label>
                                         <input type="text" class="form-control" [(ngModel)]="usuario.pais_origen" name="pais_origen">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label" id="ocultar">País de Residencia</label>
+                                        <label class="control-label">País de Residencia</label>
                                         <input type="text" class="form-control" [(ngModel)]="usuario.pais_residencia" name="pais_residencia">
                                     </div>
                                 </div>
@@ -100,7 +100,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn waves-effect waves-light btn-success" type="submit">Actualizar Datos</button>
+                            <button class="btn waves-effect waves-light btn-success" type="submit" [disabled]="_us.cargando">
+                                <i *ngIf="_us.cargando" class="fa fa-spin fa-refresh"></i>
+                                Actualizar Datos
+                            </button>
                         </form>
                     </div>
 

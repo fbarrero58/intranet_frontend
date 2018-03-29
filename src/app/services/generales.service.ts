@@ -5,19 +5,26 @@ import { URL_SERVICIOS } from '../config/config';
 @Injectable()
 export class GeneralesService {
 
-  constructor(public http: HttpClient) { 
-  }
+    constructor(public http: HttpClient) { 
+    }
 
-  cargar_roles(){
-      let url = URL_SERVICIOS + 'vmca/roles/?token='+localStorage.getItem('token');
-      return this.http.get(url);
-  }
+    cargar_roles(){
+        let url = URL_SERVICIOS + 'vmca/roles/?token='+localStorage.getItem('token');
+        return this.http.get(url);
+    }
 
-  cargar_tipo_empresa(){
-    let url = URL_SERVICIOS + 'vmca/tipoempresa/?token='+localStorage.getItem('token');
-    return this.http.get(url);
-   
-}
+    cargar_tipo_empresa(){
+        let url = URL_SERVICIOS + 'vmca/tipoempresa/?token='+localStorage.getItem('token');
+        return this.http.get(url); 
+    }
+
+    cargar_perfiles_modulos(){
+        let url = URL_SERVICIOS + 'perfiles/?token='+localStorage.getItem('token');
+        return this.http.get(url)
+                        .map( (resp:any) => {
+                            return resp.perfiles_modulos;
+                        });
+    }
 
 cargar_servicios(){
     let url = URL_SERVICIOS + 'vmca/tiposervicio/?token='+localStorage.getItem('token');
