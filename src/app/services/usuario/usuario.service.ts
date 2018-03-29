@@ -216,6 +216,7 @@ export class UsuarioService {
 
   traer_info_empresa(id_empresa){
     let url = URL_SERVICIOS + 'empresas/'+id_empresa+'/?token=' + this.token;
+    console.log (url);
     return this.http.get(url)
                     .map( (resp:any) => {
                       return resp.empresa[0];

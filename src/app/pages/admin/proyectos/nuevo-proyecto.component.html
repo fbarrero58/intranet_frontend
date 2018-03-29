@@ -1,3 +1,120 @@
-<p>
-  nuevo-proyecto works!
-</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form class="form-horizontal" ngNativeValidate [formGroup]="forma" (ngSubmit)="crear_proyecto()">
+                    <div class="form-body">
+                        <h3 class="card-title">Información del Proyecto</h3>
+                        <hr>
+                        <div class="row p-t-20">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Nombre</label>
+                                    <input type="text" class="form-control" name="nombre" formControlName="nombre" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Codigo</label>
+                                    <input type="text" class="form-control" name="codigo" formControlName="codigo" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Fecha Inicio</label>
+                                    <input type="date" class="form-control" placeholder="dd/mm/aaaa" name="inicio" formControlName="inicio" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Fecha Fin</label>
+                                    <input type="date" class="form-control" placeholder="dd/mm/aaaa" name="fin" formControlName="fin">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Cliente</label>
+                                    <select class="form-control custom-select" name="empresa " formControlName="empresa" required>
+                                        <option value="">-- Selecciona al Cliente --</option>
+                                        <option *ngFor="let cliente of clientes" [value]="cliente.id">{{cliente.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Tipo de Servicio</label>
+                                    <select class="form-control custom-select" name="tipo_servicio" formControlName="tipo_servicio" required>
+                                        <option value="">-- Selecciona al Servicio --</option>
+                                        <option *ngFor="let servicio of servicios" [value]="servicio.id">{{servicio.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Línea de Servicio</label>
+                                    <select class="form-control custom-select" name="linea_servicio" formControlName="linea_servicio" required>
+                                        <option value="">-- Selecciona la Línea --</option>
+                                        <option *ngFor="let linea of lineas" [value]="linea.id">{{linea.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Tipo de Alianza</label>
+                                    <select class="form-control custom-select" name="alianza" formControlName="alianza">
+                                        <option value="">-- Selecciona la Alianza --</option>
+                                        <option *ngFor="let alianza of alianzas" [value]="alianza.id">{{alianza.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Horas</label>
+                                    <div class="switch">
+                                        <input type="text" class="form-control" name="horas" formControlName="horas">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Facturable</label>
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" [checked]=""  formControlName="facturable" name="facturable"><span class="lever switch-col-blue"></span>
+                                          </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Tiene Ticket</label>
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" [checked]=""  formControlName="ticket" name="ticket"><span class="lever switch-col-blue"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-info">Guardar</button>
+                        <button type="button" routerLink="/admin/proyectos" class="btn btn-inverse">Volver</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

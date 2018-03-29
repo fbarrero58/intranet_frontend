@@ -24,9 +24,9 @@
                             <div class="col-md-6 ">
                                 <div class="form-group ">
                                     <label>Tipo Empresa</label>
-                                    <select class="form-control custom-select " name="id_empresa " required>
+                                    <select class="form-control custom-select " name="id_empresa " formControlName="id_empresa" required>
                                         <option value="">-- Selecciona un tipo de empresa --</option>
-                                        <option *ngFor="let tipo of tipo_empresa " [value]="tipo.id ">{{tipo.nombre}}</option>
+                                        <option *ngFor="let tipo of tipo_empresa " [value]="tipo.id " >{{tipo.nombre}}</option>
                                      </select>
 
                                 </div>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="form-actions ">
                         <button type="submit " class="btn btn-success "> <i class="fa fa-check "></i> Guardar</button>
-                        <button type="button " class="btn btn-inverse ">Volver</button>
+                        <button type="button" routerLink="/admin/empresas" class="btn btn-inverse ">Volver</button>
                     </div>
                 </form>
             </div>

@@ -1,3 +1,139 @@
-<p>
-  proyecto works!
-</p>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <form class="form-horizontal" [formGroup]="forma" (ngSubmit)="modificar_proyecto()">
+                    <div class="form-body">
+                        <h3 class="box-title">Información Laboral</h3>
+                        <hr class="m-t-0 m-b-40">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nombre</label>
+                                    <input type="text" class="form-control" [(ngModel)]="proyecto.nombre" name="nombre" formControlName="nombre" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Codigo</label>
+                                    <input type="text" class="form-control" [(ngModel)]="proyecto.codigo" name="codigo" formControlName="codigo" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Fecha Inicio</label>
+                                    <input type="date" class="form-control" [(ngModel)]="proyecto.fecha_inicio" placeholder="dd/mm/aaaa" name="inicio" formControlName="inicio" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Fecha Fin</label>
+                                    <input type="date" class="form-control" [(ngModel)]="proyecto.fecha_fin" placeholder="dd/mm/aaaa" name="fin" formControlName="fin">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Cliente</label>
+                                    <select class="form-control custom-select" [(ngModel)]="proyecto.id_empresa" name="empresa " formControlName="empresa" required>
+                                        <option value="">-- Selecciona al Cliente --</option>
+                                        <option *ngFor="let cliente of clientes" [selected]="cliente.id === proyecto.id_empresa" [value]="cliente.id">{{cliente.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Tipo de Servicio</label>
+                                    <select class="form-control custom-select" [(ngModel)]="proyecto.id_tipo_servicio" name="tipo_servicio" formControlName="tipo_servicio" required>
+                                        <option value="">-- Selecciona al Servicio --</option>
+                                        <option *ngFor="let servicio of servicios" [selected]="servicio.id === proyecto.id_tipo_servicio" [value]="servicio.id">{{servicio.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Línea de Servicio</label>
+                                    <select class="form-control custom-select" [(ngModel)]="proyecto.id_linea_servicio" name="linea_servicio" formControlName="linea_servicio" required>
+                                        <option value="">-- Selecciona la Línea --</option>
+                                        <option *ngFor="let linea of lineas" [selected]="linea.id === proyecto.id_linea_servicio" [value]="linea.id">{{linea.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Tipo de Alianza</label>
+                                    <select class="form-control custom-select" [(ngModel)]="proyecto.id_alianza" name="alianza" formControlName="alianza">
+                                        <option value="">-- Selecciona la Alianza --</option>
+                                        <option *ngFor="let alianza of alianzas" [selected]="alianza.id === proyecto.id_alianza" [value]="alianza.id">{{alianza.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Horas</label>
+                                    <div class="switch">
+                                        <input type="text" class="form-control" [(ngModel)]="proyecto.horas_disponibles" name="horas" formControlName="horas">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Facturable</label>
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" [checked]="proyecto.facturable == 'T'" [(ngModel)]="proyecto.facturable" formControlName="facturable" name="facturable"><span class="lever switch-col-blue"></span>
+                                          </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Tiene Ticket</label>
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" [checked]="proyecto.tiene_ticket == 'T'" [(ngModel)]="proyecto.ticket" formControlName="ticket" name="ticket"><span class="lever switch-col-blue"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Activo</label>
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" [checked]="proyecto.habilitado == 'T'" [(ngModel)]="proyecto.habilitado" formControlName="habilitado" name="habilitado"><span class="lever switch-col-blue"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button type="submit" class="btn btn-danger"> <i class="fa fa-pencil"></i> Guardar</button>
+                                        <button type="button" routerLink="/admin/proyectos" class="btn btn-inverse">Volver</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6"> </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

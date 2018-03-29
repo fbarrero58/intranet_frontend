@@ -43,7 +43,7 @@ export class EmpresaService {
     }
 
     let objeto = {
-      'tipo_empresa': empresa.id_tipo_empresa,
+      'tipo_empresa': empresa.id_tipo,
       'nombre': empresa.nombre,
       'habilitado': this.habilitado,
       'condicion_pago': empresa.condicion_pago
@@ -65,7 +65,7 @@ export class EmpresaService {
   crear_empresa(empresa:any){
     let url = URL_SERVICIOS + 'empresas/?token='+ this.token;
     let objeto = {
-      'tipo_empresa': '1',
+      'tipo_empresa': empresa.id_empresa,
       'codigo': empresa.codigo,
       'nombre': empresa.nombre,
       'habilitado': 'T',
@@ -75,16 +75,23 @@ export class EmpresaService {
 
   console.log("objeto", objeto);
 
-    return this.http.post(url,objeto)
-     .map( (resp:any) => {
-              if(resp.err){
-                swal("Ocurrio un error", resp.mensaje, "error");
-              }else{            
-                swal("Listo!", resp.mensaje, "success");
-              }
-              return true;
-            });
+  return this.http.post(url, objeto)
+    .map( (resp:any) => {
+      if(resp.err){
+        swal("Ocurrio un error", resp.mensaje, "error");
+      }else{
+        swal("Listo!", resp.mensaje, "success");
+      }
+      return true;
+    });
   }
+
+  todos_empresas(){
+    let url = URL_SERVICIOS + 'empresas/?token=' + this.token;
+    return this.http.get(url);
+  }
+
+ 
 
   
 }

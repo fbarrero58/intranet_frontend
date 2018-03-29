@@ -4,6 +4,7 @@ import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Empresa } from '../../../models/empresa.models';
 import { EmpresaService } from '../../../services/empresa/empresa.service';
+import { GeneralesService } from '../../../services/generales.service';
 
 
 
@@ -13,10 +14,11 @@ import { EmpresaService } from '../../../services/empresa/empresa.service';
   styles: []
 })
 export class EmpresaComponent implements OnInit {
+  tipo_empresa:any;
   empresa : Empresa = new Empresa();
   forma_modificar: FormGroup;
 
-  constructor(public ar: ActivatedRoute, public router: Router, public _us: UsuarioService, public _es: EmpresaService) { 
+  constructor(public ar: ActivatedRoute, public router: Router, public _us: UsuarioService, public _es: EmpresaService, public _gs: GeneralesService) { 
 
     this.ar.params.subscribe( params => {
       let id = params['id'];
@@ -26,6 +28,12 @@ export class EmpresaComponent implements OnInit {
               //console.log (this.empresa);
             });
     });
+
+    this._gs.cargar_tipo_empresa()
+    .subscribe((resp:any) => {
+      this.tipo_empresa = resp.empresas;
+      console.log("tipos de empresas", this.tipo_empresa)
+    });
     
   }
 
@@ -33,7 +41,7 @@ export class EmpresaComponent implements OnInit {
     this.forma_modificar = new FormGroup({
       nombre: new FormControl(),
       codigo: new FormControl(),
-      id_tipo_empresa: new FormControl(),
+      id_tipo: new FormControl(),
       alias: new FormControl(),
       condicion_pago: new FormControl(),
       habilitado: new FormControl()

@@ -19,4 +19,20 @@ export class GeneralesService {
    
 }
 
+cargar_servicios(){
+    let url = URL_SERVICIOS + 'vmca/tiposervicio/?token='+localStorage.getItem('token');
+    return this.http.get(url);
+}
+
+cargar_lineas(){
+    let url = URL_SERVICIOS + 'vmca/lineaservicio/?token='+localStorage.getItem('token');
+    return this.http.get(url);
+}
+
+cargar_alianzas(){
+    let url = URL_SERVICIOS + 'alianzas/?token='+localStorage.getItem('token');
+    return this.http.get(url);
+}
+
+
 }

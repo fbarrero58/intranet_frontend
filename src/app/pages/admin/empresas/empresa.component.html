@@ -11,7 +11,7 @@
                                 <div class="form-group row">
                                     <label class="control-label text-right col-md-3">Nombre:</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" required [(ngModel)]="empresa.nombre" formControlName="nombre" name="nombre">
+                                        <input type="text" class="form-control" [(ngModel)]="empresa.nombre" formControlName="nombre" name="nombre" required>
                                     </div>
                                 </div>
                             </div>
@@ -20,7 +20,7 @@
                                 <div class="form-group row">
                                     <label class="control-label text-right col-md-3">Código:</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" required [(ngModel)]="empresa.codigo " formControlName="codigo" name="codigo" disabled>
+                                        <input type="text" class="form-control" [(ngModel)]="empresa.codigo " formControlName="codigo" name="codigo" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -32,7 +32,10 @@
                                 <div class="form-group row">
                                     <label class="control-label text-right col-md-3">Tipo Empresa:</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" required [(ngModel)]="empresa.tipo_empresa " formControlName="id_tipo_empresa" name="tipo_empresa">
+                                        <select class="form-control custom-select" [(ngModel)]="empresa.id_tipo_empresa" name="id_tipo " formControlName="id_tipo" required>
+                                            <option value="">-- Selecciona un tipo de empresa --</option>
+                                            <option *ngFor="let tipo of tipo_empresa " [selected]="tipo.id === empresa.id_tipo_empresa" [value]="tipo.id " >{{tipo.nombre}}</option>
+                                         </select>
                                     </div>
                                 </div>
                             </div>
@@ -41,7 +44,7 @@
                                 <div class="form-group row">
                                     <label class="control-label text-right col-md-3">Alias:</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" required [(ngModel)]="empresa.alias" name="alias" formControlName="alias" disabled>
+                                        <input type="text" class="form-control" [(ngModel)]="empresa.alias" name="alias" formControlName="alias" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -53,14 +56,14 @@
                                 <div class="form-group row">
                                     <label class="control-label text-right col-md-3">Condición de pago:</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" required formControlName="condicion_pago" name="condicion_pago" [(ngModel)]="empresa.condicion_pago ">
+                                        <input type="text" class="form-control" formControlName="condicion_pago" name="condicion_pago" [(ngModel)]="empresa.condicion_pago" required>
                                     </div>
                                 </div>
                             </div>
                             <!--/span-->
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="control-label text-right col-md-3">Habilitada:</label>
+                                    <label class="control-label text-right col-md-3">Activa:</label>
                                     <div class="col-md-9">
                                         <div class="switch">
                                             <label>
@@ -81,8 +84,8 @@
                             <div class="col-md-6">
                                 <div class="row">
                                     <div class="col-md-offset-3 col-md-9">
-                                        <button class="btn waves-effect waves-light btn-success" type="submit">Actualizar Empresa</button>
-                                        <button type="button" class="btn btn-inverse">Cancel</button>
+                                        <button type="submit" class="btn btn-danger"> <i class="fa fa-pencil"></i> Guardar</button>
+                                        <button type="button" routerLink="/admin/empresas" class="btn btn-inverse">Volver</button>
                                     </div>
                                 </div>
                             </div>

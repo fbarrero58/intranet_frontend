@@ -15,6 +15,8 @@ import { LoginGuardGuard } from './services/guards/login-guard.guard';
 import { EmpresaService } from './services/empresa/empresa.service';
 import { GeneralesService } from './services/generales.service';
 
+
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
@@ -22,6 +24,7 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import { NuevapassComponent } from './nuevapass/nuevapass.component';
+import { ProyectoService } from './services/proyecto/proyecto.service';
 
 
 
@@ -47,6 +50,7 @@ import { NuevapassComponent } from './nuevapass/nuevapass.component';
     LoginGuardGuard,
     EmpresaService,
     GeneralesService,
+    ProyectoService,
     LoginGuardGuard
   ],
   bootstrap: [AppComponent]
