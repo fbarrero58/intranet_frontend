@@ -78,18 +78,17 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Horas</label>
-                                    <div class="switch">
-                                        <input type="text" class="form-control" [(ngModel)]="proyecto.horas_disponibles" name="horas" formControlName="horas">
-                                    </div>
+                                    <input type="text" class="form-control" [(ngModel)]="proyecto.horas_disponibles" name="horas" formControlName="horas">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Facturable</label>
+
                                     <div class="switch">
                                         <label>
-                                            <input type="checkbox" [checked]="proyecto.facturable == 'T'" [(ngModel)]="proyecto.facturable" formControlName="facturable" name="facturable"><span class="lever switch-col-blue"></span>
-                                          </label>
+                                           <input type="checkbox" [checked]="proyecto.facturable == 'T'" formControlName="facturab" name="facturab" ><span class="lever switch-col-blue"></span>
+                                           </label>
                                     </div>
                                 </div>
                             </div>
@@ -100,8 +99,8 @@
                                     <label>Tiene Ticket</label>
                                     <div class="switch">
                                         <label>
-                                            <input type="checkbox" [checked]="proyecto.tiene_ticket == 'T'" [(ngModel)]="proyecto.ticket" formControlName="ticket" name="ticket"><span class="lever switch-col-blue"></span>
-                                        </label>
+                                            <input type="checkbox" [checked]="proyecto.tiene_ticket == 'T'"  formControlName="ticket" name="ticket"><span class="lever switch-col-blue"></span>
+                                            </label>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +109,7 @@
                                     <label>Activo</label>
                                     <div class="switch">
                                         <label>
-                                            <input type="checkbox" [checked]="proyecto.habilitado == 'T'" [(ngModel)]="proyecto.habilitado" formControlName="habilitado" name="habilitado"><span class="lever switch-col-blue"></span>
+                                          <input type="checkbox" [checked]="proyecto.habilitado == 'T'"  formControlName="activo" name="activo" ><span class="lever switch-col-blue"></span>
                                         </label>
                                     </div>
                                 </div>
@@ -124,7 +123,7 @@
                             <div class="col-md-6">
                                 <div class="row">
                                     <div class="col-md-offset-3 col-md-9">
-                                        <button type="submit" class="btn btn-danger"> <i class="fa fa-pencil"></i> Guardar</button>
+                                        <button type="submit" class="btn btn-danger"> <i class="fa fa-pencil"></i>Guardar</button>
                                         <button type="button" routerLink="/admin/proyectos" class="btn btn-inverse">Volver</button>
                                     </div>
                                 </div>

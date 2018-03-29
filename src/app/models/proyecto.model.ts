@@ -10,10 +10,10 @@ export class Proyecto{
         public nombre?: string,
         public inicio?: string,
         public fin?: string,
-        public habilitadi?: string,
+        public activo?: string,
         public ticket?: string,
         public horas?: string,
-        public facturable?: string
+        public facturab?: string
     ){}
 
 }

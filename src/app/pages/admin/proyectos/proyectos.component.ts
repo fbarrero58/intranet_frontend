@@ -23,6 +23,7 @@ export class ProyectosComponent implements OnInit {
       console.log(resp);
       this.proyectos = resp.proyectos;
       this.listar_proyectos();
+      console.log(this.proyectos);
      /* this.cargando = false;*/
     });
    

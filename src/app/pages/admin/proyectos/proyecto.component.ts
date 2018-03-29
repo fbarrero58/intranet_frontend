@@ -50,11 +50,9 @@ export class ProyectoComponent implements OnInit {
       this._ps.traer_info_proyecto(id)
             .subscribe( resp => {
               this.proyecto = resp;
-            console.log(this.proyecto);
+              console.log(this.proyecto);
             });
     });
-
-  
    }
 
   ngOnInit() {
@@ -68,33 +66,34 @@ export class ProyectoComponent implements OnInit {
       nombre: new FormControl(),
       inicio: new FormControl(),
       fin: new FormControl(),
-      habilitado: new FormControl(),
+      activo: new FormControl(),
       ticket: new FormControl(),
       horas: new FormControl(),
-      facturable: new FormControl()
+      facturab: new FormControl()
       
     });
   }
 
+ 
   modificar_proyecto(){
-    if (this.forma.value.facturable == true){
-      this.factura= 'T'
-    }else{
-      this.factura='F'
-    }
-
     if (this.forma.value.ticket == true){
       this.ticket= 'T'
     }else{
       this.ticket='F'
     }
 
-    if (this.forma.value.habilitado == true){
+    if (this.forma.value.facturab == true){
+      this.factura= 'T'
+    }else{
+      this.factura='F'
+    }
+
+    if (this.forma.value.activo == true){
       this.habilitado= 'T'
     }else{
       this.habilitado='F'
     }
-    //console.log(this.forma.value);
+    console.log("forma ", this.forma.value);
 
     let objeto_proyecto = {
       'id_empresa': this.forma.value.empresa,
@@ -112,12 +111,11 @@ export class ProyectoComponent implements OnInit {
       'facturable': this.factura
     };
 
-    console.log (objeto_proyecto);
+   console.log ("objeto a imprimir",objeto_proyecto);
    this._ps.modificar_proyecto(objeto_proyecto,this.proyecto)
             .subscribe(resp => {});
   }
 
-   
-  }
+}
 
 

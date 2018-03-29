@@ -19,6 +19,7 @@ export class EmpresaComponent implements OnInit {
   forma_modificar: FormGroup;
 
   constructor(public ar: ActivatedRoute, public router: Router, public _us: UsuarioService, public _es: EmpresaService, public _gs: GeneralesService) { 
+  
 
     this.ar.params.subscribe( params => {
       let id = params['id'];
